@@ -1,0 +1,124 @@
+/* Dark Slate Theme — overrides on top of Bootstrap */
+
+/* ---------- Theme tokens ---------- */
+:root{
+  --bg: #0e1116;            /* page background */
+  --panel: #161b22;         /* card background */
+  --panel-2: #1b2230;       /* alt card / subtle areas */
+  --text: #e6edf3;          /* primary text */
+  --muted: #9aa5b1;         /* secondary text */
+  --border: #2b3340;        /* panel borders */
+  --input: #0f141b;         /* input background */
+  --primary: #6aa8ff;       /* primary brand */
+  --primary-600: #4e92f5;   /* primary hover */
+  --shadow: 0 10px 30px rgba(0,0,0,.45);
+  --radius-lg: 16px;
+  --radius-sm: 10px;
+  --spacing: 28px;
+}
+
+/* ---------- Page ---------- */
+html, body{
+  height: 100%;
+}
+body{
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Limit line length a bit for readability */
+.container{
+  max-width: 960px;
+}
+
+/* ---------- Heading at top ---------- */
+.page-title{
+  font-size: clamp(32px, 5vw, 44px);
+  font-weight: 700;
+  letter-spacing: .3px;
+  margin: 12px 0 22px 0;
+}
+
+/* ---------- Panels / “cards” ---------- */
+.card{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing);
+  box-shadow: var(--shadow);
+  color: var(--text);
+}
+
+.card + .card{
+  margin-top: 22px;
+}
+
+/* section titles inside cards */
+.card h2, .section-title{
+  font-size: 26px;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+/* ---------- Form controls ---------- */
+.form-label{
+  color: var(--muted);
+}
+
+.form-control,
+.form-select,
+.form-check-input{
+  background-color: var(--input);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+}
+
+.form-control::placeholder{
+  color: #738096;
+}
+
+.form-control:focus,
+.form-select:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.15rem rgba(106,168,255,.25);
+  background-color: var(--input);
+  color: var(--text);
+}
+
+/* Date input keeps the same dark look */
+input[type="date"].form-control{
+  color-scheme: dark;
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary{
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  color: #0b1320;
+  font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-primary:focus{
+  background: var(--primary-600);
+  border-color: var(--primary-600);
+  color: #08101b;
+}
+
+/* Muted help text / empty states */
+.text-muted, .form-text{
+  color: var(--muted) !important;
+}
+
+/* ---------- “Tasks” block ---------- */
+.tasks-empty{
+  color: var(--muted);
+}
+
+/* Optional subtle divider between big sections */
+.section-gap{
+  margin-top: 28px;
+}

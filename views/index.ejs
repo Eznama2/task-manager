@@ -1,0 +1,121 @@
+<% /* views/index.ejs */ %>
+
+<% /* --- Alerts --------------------------------------------------------- */ %>
+<% if (typeof message !== 'undefined' && message) { %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= message %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<% if (errors && errors.length) { %>
+  <div class="alert alert-danger" role="alert">
+    <ul class="mb-0">
+      <% errors.forEach(e => { %><li><%= e %></li><% }) %>
+    </ul>
+  </div>
+<% } %>
+
+<section class="card shadow-sm">
+  <div class="card-body">
+    <h2 class="card-title h4 mb-4">Add a Task</h2>
+
+    <form action="/tasks" method="POST" class="row g-3" novalidate>
+      <div class="col-12">
+        <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+        <input
+          id="title"
+          name="title"
+          class="form-control"
+          placeholder="e.g., Write project brief"
+          required
+          value="<%= (form && form.title) ? form.title : '' %>"
+        />
+      </div>
+
+      <div class="col-12">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          class="form-control"
+          rows="3"
+          placeholder="Optional details"><%= (form && form.description) ? form.description : '' %></textarea>
+      </div>
+
+      <div class="col-sm-6 col-md-4">
+        <label for="due_date" class="form-label">Due date</label>
+        <input
+          id="due_date"
+          type="date"
+          name="due_date"
+          class="form-control"
+          value="<%= (form && form.due_date) ? form.due_date : '' %>"
+        />
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-primary w-100">Add Task</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="card mt-4 shadow-sm">
+  <div class="card-body">
+    <h2 class="card-title h4">Tasks</h2>
+
+    <% if (!tasks || tasks.length === 0) { %>
+      <p class="text-secondary mb-0">No tasks yet. Add your first one above.</p>
+    <% } else { %>
+
+      <ul class="list-group list-group-flush mt-3">
+        <% tasks.forEach(t => { %>
+          <li class="list-group-item bg-body-tertiary">
+            <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+              <div class="flex-grow-1">
+                <h6 class="mb-1 <%= t.completed ? 'text-decoration-line-through text-secondary opacity-75' : '' %>">
+                  <%= t.title %>
+                </h6>
+
+                <% if (t.description) { %>
+                  <p class="mb-2 small text-secondary <%= t.completed ? 'text-decoration-line-through' : '' %>">
+                    <%= t.description %>
+                  </p>
+                <% } %>
+
+                <div class="d-flex align-items-center gap-2">
+                  <% if (t.due_date) { %>
+                    <span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis">
+                      Due: <%= prettyDate(t.due_date) %>
+                    </span>
+                  <% } %>
+                  <% if (t.completed) { %>
+                    <span class="badge bg-success-subtle border border-success-subtle text-success-emphasis">Completed</span>
+                  <% } %>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center gap-2">
+                <% if (t.completed) { %>
+                  <form action="/tasks/<%= t.id %>/uncomplete" method="POST">
+                    <button class="btn btn-sm btn-outline-warning" title="Undo completion">Undo</button>
+                  </form>
+                <% } else { %>
+                  <form action="/tasks/<%= t.id %>/complete" method="POST">
+                    <button class="btn btn-sm btn-success" title="Mark complete">Complete</button>
+                  </form>
+                <% } %>
+
+                <form action="/tasks/<%= t.id %>/delete" method="POST" onsubmit="return confirm('Delete this task?');">
+                  <button class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+
+    <% } %>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+﻿# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnpm-store/
+
+# Environment / OS
+.DS_Store
+Thumbs.db
+
+# Build & logs
+dist/
+coverage/
+*.log
+
+# Local data (SQLite)
+data/tasks.db
+
+# Editor
+.vscode/
+.idea/
