@@ -106,16 +106,59 @@
                     <button class="btn btn-sm btn-success" title="Mark complete">Complete</button>
                   </form>
                 <% } %>
-
+                <button 
+                  type="button" 
+                  class="btn btn-sm btn-outline-primary" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#editModal-<%= t.id %>">
+                  Edit
+                </button>
                 <form action="/tasks/<%= t.id %>/delete" method="POST" onsubmit="return confirm('Delete this task?');">
                   <button class="btn btn-sm btn-outline-danger">Delete</button>
                 </form>
               </div>
             </div>
           </li>
+          <div class="modal fade" id="editModal-<%= t.id %>" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Task</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                  
+                  <form action="/tasks/<%= t.id %>/edit" method="POST">
+                    
+                    <div class="mb-3">
+                      <label class="form-label">Title</label>
+                      <input type="text" name="title" class="form-control" value="<%= t.title %>" required>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <textarea name="description" class="form-control" rows="3"><%= t.description %></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Due Date</label>
+                      <input type="date" name="due_date" class="form-control" value="<%= t.due_date %>">
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
         <% }) %>
       </ul>
-
     <% } %>
   </div>
 </section>
