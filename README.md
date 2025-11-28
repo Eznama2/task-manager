@@ -1,7 +1,7 @@
 # Task Manager — Node.js + Express + SQLite (1-week project)
 
 A minimal, laptop-only task manager built with **Express + EJS** and **SQLite** using **better-sqlite3**.  
-Focus: clean CRUD, persistent storage, dark UI, and friendly validation.
+Focus: clean CRUD, persistent storage, dark UI and user-friendly validation.
 
 ## Quick Start
 
